@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request } from 'express';
@@ -41,8 +41,27 @@ export class RefreshTokenGuard implements CanActivate {
   }
 
   private extractRefreshTokenFromCookie(request: Request): string | undefined {
-    const token = request.cookies['fridaymake-up-rt'] ?? undefined;
+    try {
+      const token = request.cookies['fridaymake-up-at'];
 
-    return token;
+      const isValid = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET
+      });
+
+      if (isValid) {
+        const refreshToken = request.cookies['fridaymake-up-rt'] ?? undefined;
+
+        return refreshToken; 
+      }
+  
+    } catch (error) {
+      if (error.message === 'jwt expired') {
+        const refreshToken = request.cookies['fridaymake-up-rt'] ?? undefined;
+
+        return refreshToken; 
+      }
+
+      throw new InternalServerErrorException();
+    }
   }
 }

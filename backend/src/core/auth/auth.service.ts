@@ -82,7 +82,7 @@ export class AuthService {
     }
   }
 
-  public async signOut(req: Request, res: Response) {
+  public async signOut(res: Response) {
     try {
       res.clearCookie('fridaymake-up-at');
       res.clearCookie('fridaymake-up-rt');
@@ -135,6 +135,10 @@ export class AuthService {
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
+  }
+
+  public checkValidation(res: Response) {
+    return res.status(200).json({ content: true });
   }
 
   private async generateTokens(payload: any) {

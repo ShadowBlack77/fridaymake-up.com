@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
 import { Public } from 'src/libs/decorators';
@@ -22,13 +22,19 @@ export class AuthController {
   }
 
   @Post('/sign-out')
-  public signOut(@Req() req: Request, @Res() res: Response) {
-    return this.authService.signOut(req, res);
+  public signOut( @Res() res: Response) {
+    return this.authService.signOut(res);
   }
 
+  @Public()
   @UseGuards(RefreshTokenGuard)
   @Post('/refresh-token')
   public refreshToken(@Req() req: Request, @Res() res: Response) {
     return this.authService.refreshToken(req, res);
+  }
+
+  @Get('/check-validation')
+  public checkValidation(@Res() res: Response) {
+    return this.authService.checkValidation(res);
   }
 }
