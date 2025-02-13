@@ -24,3 +24,6 @@
     - Dodać zdjęcia na Cloudinary i każdy IMG ma być responsywny
     - Przejrzeć spójność kodu, te same nazwy, selektory dostępu itd
     - Spróbować zrobić alias ścieżki '@'
+
+  # Ogólnie:
+    - Dockerfile & Host na Render.com (Pamiętać o przerzuceniu dist z fronta do foldera backend i zmienić nazwę folderu z dist na 'frontend-dist')
