@@ -19,6 +19,7 @@
   
   # FE:
     - Odpowiednie wyświetlenie podstrony [Zweryfikuj adres email]
+    - Zrobić dyrektywę z animacjami
     - Otypować WSZYSTKIE obiekty
     - Otypować store
     - Dodać zdjęcia na Cloudinary i każdy IMG ma być responsywny
