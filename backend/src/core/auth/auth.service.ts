@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { User } from 'src/libs/schemas';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
@@ -139,6 +139,21 @@ export class AuthService {
 
   public checkValidation(res: Response) {
     return res.status(200).json({ content: true });
+  }
+
+  public async getUser(res: Response, userId: string) {
+    try {
+      const user = await this.UserModel.findOne({ _id: new Types.ObjectId(userId) })
+        .select('username role email _id');
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return res.status(200).json({ content: user });
+    } catch (error) {
+      
+    }
   }
 
   private async generateTokens(payload: any) {

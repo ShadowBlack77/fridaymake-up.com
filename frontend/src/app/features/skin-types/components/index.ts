@@ -1,0 +1,1 @@
+export * from './skin-types-list/skin-types-list.component';

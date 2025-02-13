@@ -1,0 +1,65 @@
+<aside id="aside-navbar-menu" class="aside-navbar-menu expand position-fixed pt-5" appAside>
+  <div class="text-center">
+    <div class="sidebar-logo">
+      <ng-content select="[user-greetings]" />
+    </div>
+  </div>
+  <ul class="sidebar-nav">
+    <li class="sidebar-item">
+      <a routerLink="/" class="sidebar-link" id="help">
+        <i class="bi bi-house"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/price-list" class="sidebar-link" id="help">
+        <i class="bi bi-card-checklist"></i>
+        <span>Cennik</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/portfolio" class="sidebar-link" id="help">
+        <i class="bi bi-grid"></i>
+        <span>Portfolio</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/certificates" class="sidebar-link" id="help">
+        <i class="bi bi-file-check"></i>
+        <span>Certyfikaty</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/questionnaire" class="sidebar-link" id="help">
+        <i class="bi bi-pencil-square"></i>
+        <span>Zapisz się</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/account" class="sidebar-link" id="help">
+        <i class="bi bi-person"></i>
+        <span>Moje Konto</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/information" class="sidebar-link" id="help">
+        <i class="bi bi-info-circle"></i>
+        <span>Informacje</span>
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a routerLink="/statute" class="sidebar-link" id="help">
+        <i class="bi bi-lock"></i>
+        <span>Regulamin</span>
+      </a>
+    </li>
+    <ng-content select="[auth-actions]" />
+  </ul> 
+  <div class="sidebar-footer">
+    <div class="my-2">
+      <p class="lead text-light text-center mb-0" style="font-size: 0.7em;">
+        Version: 0.0.1
+      </p>
+    </div>
+  </div>
+</aside>

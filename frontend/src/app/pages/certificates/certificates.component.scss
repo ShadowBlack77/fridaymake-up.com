@@ -1,0 +1,41 @@
+.card-img-overlay {
+  background-color: transparent;
+  opacity: 0;
+  transition: .4s ease-in-out;
+}
+
+.card-img-overlay:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, .7);
+  backdrop-filter: blur(2px);
+}
+
+.bg-main {
+  background: radial-gradient(circle at 50% 50%, #f7d3b5, #ada687);
+}
+
+.masonry {
+  column-count: 3;
+  column-gap: 16px;
+  width: 100%;
+}
+
+.masonry .card {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 900px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .masonry {
+    column-count: 1;
+  }
+}

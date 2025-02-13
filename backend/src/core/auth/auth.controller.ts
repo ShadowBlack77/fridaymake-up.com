@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
-import { Public } from 'src/libs/decorators';
+import { GetCurrentUserId, Public } from 'src/libs/decorators';
 import { RefreshTokenGuard } from './guards/refresh-token/refresh-token.guard';
 
 @Controller('auth')
@@ -36,5 +36,10 @@ export class AuthController {
   @Get('/check-validation')
   public checkValidation(@Res() res: Response) {
     return this.authService.checkValidation(res);
+  }
+
+  @Get('/user')
+  public getUser(@Res() res: Response, @GetCurrentUserId() userId: string) {
+    return this.authService.getUser(res, userId);
   }
 }

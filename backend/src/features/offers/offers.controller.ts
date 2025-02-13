@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { OffersService } from './offers.service';
+import { Response } from 'express';
 
 @Controller('offers')
 export class OffersController {
@@ -7,7 +8,7 @@ export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 
   @Get('/')
-  public getAll() {
-    return this.offersService.getAll();
+  public getAll(@Res() res: Response) {
+    return this.offersService.getAll(res);
   }
 }

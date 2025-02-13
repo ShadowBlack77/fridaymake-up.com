@@ -1,0 +1,55 @@
+<div [ngClass]="footerStyle === 'main' ? 'bg-main' : 'bg-black'">
+  <div class="container">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 mb-3">
+          <p class="" [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">© {{ currentYear() }} ShadowBlack</p>
+        </div>
+    
+        <div class="col mb-3">
+          <h5 [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">Zarezerwuj wizytę</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <p  class="nav-link p-0 " [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">ul. Miła 8, 41-412 Mysłowice</p>
+            </li>
+            <li class="nav-item mb-2">
+              <p class="nav-link p-0 " [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">Telefon: (+48)695 102 403</p>
+            </li>
+            <li class="nav-item mb-2">
+              <p class="nav-link p-0 " [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">E-mail: {{ 'info.fridaymakeup@gmail.com' }}</p>
+            </li>
+          </ul>
+        </div>
+    
+        <div class="col mb-3">
+          <h5 [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">Godziny Otwarcia</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <p class="nav-link p-0 " [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">Cały tydzień: 12:00-20:00</p>
+            </li>
+            <li class="nav-item mb-2">
+              <p class="nav-link p-0 " [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">Godziny dotyczą kontaktu!</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a href="#" class="nav-link px-3 fs-3" [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">
+            <i class="bi bi-facebook"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-3 fs-3" [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">
+            <i class="bi bi-instagram"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-3 fs-3" [ngClass]="footerStyle === 'main' ? 'text-body-secondary' : 'text-light'">
+            <i class="bi bi-tiktok"></i>
+          </a>
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>

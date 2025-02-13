@@ -1,0 +1,15 @@
+@if (!currentUser()) {
+  <li class="sidebar-item">
+    <a routerLink="/auth/sign-in" class="sidebar-link" id="help">
+      <i class="bi bi-box-arrow-in-right"></i>
+      <span>Zaloguj</span>
+    </a>
+  </li>
+} @else {
+  <li class="sidebar-item">
+    <a routerLink="/" class="sidebar-link" id="help" (click)="signOut()">
+      <i class="bi bi-box-arrow-in-left"></i>
+      <span>Wyloguj</span>
+    </a>
+  </li>  
+}

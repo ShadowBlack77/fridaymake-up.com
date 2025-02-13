@@ -41,27 +41,8 @@ export class RefreshTokenGuard implements CanActivate {
   }
 
   private extractRefreshTokenFromCookie(request: Request): string | undefined {
-    try {
-      const token = request.cookies['fridaymake-up-at'];
+    const refreshToken = request.cookies['fridaymake-up-rt'] ?? undefined;
 
-      const isValid = this.jwtService.verify(token, {
-        secret: process.env.JWT_SECRET
-      });
-
-      if (isValid) {
-        const refreshToken = request.cookies['fridaymake-up-rt'] ?? undefined;
-
-        return refreshToken; 
-      }
-  
-    } catch (error) {
-      if (error.message === 'jwt expired') {
-        const refreshToken = request.cookies['fridaymake-up-rt'] ?? undefined;
-
-        return refreshToken; 
-      }
-
-      throw new InternalServerErrorException();
-    }
+    return refreshToken; 
   }
 }

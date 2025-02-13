@@ -1,0 +1,13 @@
+.navbar-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+.navbar {
+  min-height: 5vh;
+
+  .navbar-nav-header {
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,45 @@
+<form [formGroup]="signInForm" (submit)="onSubmit()">
+  <div class="mb-3">
+    <label for="email">Nazwa użytkownika</label>
+    <input 
+      type="email"
+      name="email"
+      id="email"
+      class="form-control custom-border"
+      formControlName="email"
+      required
+      autocomplete="no"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="password">Hasło</label>
+    <input 
+      type="password"
+      name="password"
+      id="password"
+      class="form-control custom-border"
+      formControlName="password"
+      required
+      autocomplete="no"
+    >
+  </div>
+  <div class="mb-3">
+    <div class="form-check">
+      <input 
+        class="form-check-input" 
+        type="checkbox" 
+        id="remember"
+        name="remember"
+      >
+      <label class="form-check-label" for="remember">
+        Zapamiętaj mnie
+      </label>
+    </div>
+  </div>
+  <div class="mb-3 text-end">
+    <p class="lead">Nie masz jeszcze konta? <a routerLink="/auth/sign-up" class="text-black">Zarejestruj się już teraz!</a></p>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-outline-dark">Zaloguj</button>
+  </div>
+</form>

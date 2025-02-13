@@ -1,0 +1,5 @@
+@if (!currentUser()) {
+  <button class="btn btn-outline-dark" routerLink="/auth/sign-in">Zaloguj się</button>
+} @else {
+  <button class="btn btn-outline-dark" routerLink="/account">Moje konto</button>
+}
