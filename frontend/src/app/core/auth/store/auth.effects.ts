@@ -3,10 +3,11 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { authActions } from "./auth.actions";
 import { AuthService } from "../services";
-import { map, switchMap, take } from "rxjs";
+import { catchError, map, of, switchMap, take, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { QuestionnaireService } from "../../../features/questionnaire/services/questionnaire.service";
 import { LoadingScreenActions } from "../../../features/loading-screen/store/loading-screen.actions";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class AuthEffects {
@@ -32,6 +33,11 @@ export class AuthEffects {
                 this.store.dispatch(LoadingScreenActions.hideLoadingScreen());
 
                 return authActions.getUserSuccessfully({ user: user.content });
+              }),
+              catchError(() => {
+                this.store.dispatch(LoadingScreenActions.hideLoadingScreen());
+
+                return of(authActions.getUserSuccessfully({ user: user.content }));
               })
             )
           })

@@ -1,0 +1,30 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #stepNineForm="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <label for="selected-date" class="form-label">Wybierz datę</label>
+        <input 
+          type="date" 
+          name="selected-date" 
+          id="selected-date"
+          class="form-control custom-border"
+          [(ngModel)]="stepNine.selectedDate"
+        >
+      </div>
+      <div class="mb-3">
+        <label for="selected-hour" class="form-label">Wybierz godzinę</label>
+        <input 
+          type="time" 
+          name="selected-time" 
+          id="selected-time"
+          class="form-control custom-border"
+          [(ngModel)]="stepNine.selectedHour"
+        >
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-danger me-2" (click)="previous()">Wróć</button>
+        <button class="btn btn-outline-dark">Dalej</button>
+      </div>
+    </form>
+  </div>
+</div>

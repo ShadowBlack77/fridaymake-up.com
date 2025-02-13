@@ -1,0 +1,16 @@
+<div>
+  @if (!isQuestionnaireSaved() || wrapperType === 'update') {
+    <ng-content />
+  } @else {
+    <div class="bg-main d-flex justify-content-center align-items-center flex-column text-center">
+      <div class="container d-flex justify-content-center">
+        <div class="col-12 col-xl-7">
+          <h2 class="display-5">
+            Dziękujemy za wypełnienie Ankiety!
+          </h2>
+          <p class="lead">Każdy użytkownik może mieć tylko <strong>Jedną</strong> aktywną ankietę w danym momencie! Jeżeli widzisz tą wiadomość pomimo zakończenia rezerwacji lub brak wcześniejszego wypełniania ankiety, skontaktuj się z nami, a pomożemy!</p>
+        </div>
+      </div>
+    </div>
+  }
+</div> 

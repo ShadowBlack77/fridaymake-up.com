@@ -3,7 +3,10 @@ export interface QuestionnaireModel {
   readonly name: string;
   readonly email: string;
   readonly phoneNumber: string;
-  readonly services: string;
+  readonly offers: {
+    _id: string;
+    name: string;
+  };
   readonly allergy: boolean | number;
   readonly allergyIngredients: string | null;
   readonly skinChanges: boolean | number;
@@ -17,13 +20,16 @@ export interface QuestionnaireModel {
   readonly diseaseTwo: boolean | number;
   readonly diseaseThree: boolean | number;
   readonly skinShiny: boolean | number;
-  readonly skinTypes: string;
+  readonly skinTypes: {
+    _id: string;
+    name: string;
+  };
   readonly expectedEffect: string | null;
   readonly hairdo: string | null;
   readonly makeUp: string | null;
   readonly cream: string | null;
   readonly useAppearance: boolean | number;
-  readonly selectedDate: Date | string;
+  readonly selectedDate: Date;
   readonly selectedHour: string;
   readonly userId: string;
   readonly isClosed: boolean;

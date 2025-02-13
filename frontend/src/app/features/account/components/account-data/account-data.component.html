@@ -1,1 +1,52 @@
-<p>account-data works!</p>
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6 py-5">
+    <div class="text-center mb-2">
+      <h2 class="display-5">
+        Witaj, {{ user()?.username }}
+      </h2>
+      <p class="lead">Email: <span class="fst-italic">{{ user()?.email }}</span></p>
+    </div>
+    <div>
+      <ul class="list-group list-group-flush">
+        <li 
+          class="list-group-item bg-transparent border-bottom border-black"
+          [ngClass]="{
+            'disabled': questionnaire() === null
+          }"
+        >
+          <a 
+            routerLink="/account/questionnaire" class="text-decoration-none" 
+            [ngClass]="{
+              'text-secondary fst-italic': questionnaire() === null,
+              'text-black': questionnaire() !== null
+            }"
+          >
+            <i class="bi bi-journal"></i> Zobacz ankietę 
+          </a>
+          @if (questionnaire() === null) {
+            <span class="fst-italic text-danger">*Nie posiadasz jeszcze żadnej ankiety</span>
+          }
+        </li>
+        <li 
+          class="list-group-item bg-transparent border-bottom border-black"
+          [ngClass]="{
+            'disabled': questionnaire() === null
+          }"
+        >
+          <a 
+            routerLink="/account/questionnaire-update" class="text-decoration-none" 
+            [ngClass]="{
+              'text-secondary fst-italic': questionnaire() === null,
+              'text-black': questionnaire() !== null
+            }"
+          >
+            <i class="bi bi-pen"></i> Zmodyfikuj ankietę
+          </a>
+          @if (questionnaire() === null) {
+            <span class="fst-italic text-danger">*Nie posiadasz jeszcze żadnej ankiety</span>
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

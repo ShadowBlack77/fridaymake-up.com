@@ -1,1 +1,19 @@
-<p>create-questionnaire works!</p>
+<app-questionnaire-wrapper>
+  <div class="bg-main d-flex justify-content-between flex-column">
+    <app-stepper>
+      <app-contact-details appStepper />
+      <app-step-one appStepper />
+      <app-step-two appStepper />
+      <app-step-three appStepper />
+      <app-step-four appStepper />
+      <app-step-five appStepper />
+      <app-step-six appStepper />
+      <app-step-seven appStepper />
+      <app-step-eight appStepper />
+      <app-step-nine appStepper />
+      <app-step-ten appStepper />
+      <app-summary-step appStepper />
+    </app-stepper>
+  </div>
+</app-questionnaire-wrapper>
+<app-footer [footerStyle]="'dark'" />

@@ -1,1 +1,13 @@
-<p>stepper works!</p>
+<div>
+  <div class="container py-5">
+    @if (currentStepIndex() < lengthOfSteps()) {
+      <div class="text-center mb-4">
+        <h2 class="display-5">{{ title }}</h2>
+        <p class="lead">Krok {{ currentStepIndex() }}/{{ lengthOfSteps() - 1 }}</p>
+      </div>
+    }
+    <div>
+      <ng-content />
+    </div>
+  </div>
+</div>

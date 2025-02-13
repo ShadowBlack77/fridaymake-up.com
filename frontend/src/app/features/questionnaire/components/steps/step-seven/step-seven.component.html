@@ -1,0 +1,22 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #stepSevenForm="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <div>
+          <label for="make-up" class="form-label">Co lubisz w makijażu</label>
+          <textarea 
+            class="form-control custom-border-area" 
+            id="make-up" 
+            style="height: 300px; resize: none;"
+            name="expected-effects"
+            [(ngModel)]="stepSeven.makeUp"
+          ></textarea>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-danger me-2" (click)="previous()">Wróć</button>
+        <button class="btn btn-outline-dark">Dalej</button>
+      </div>
+    </form>
+  </div>  
+</div>

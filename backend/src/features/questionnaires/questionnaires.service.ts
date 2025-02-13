@@ -16,7 +16,7 @@ export class QuestionnairesService {
       const userQuestionnaire = await this.QuestionnaireSchema.findOne({ user: new Types.ObjectId(userId) })
         .populate('user', 'username email role')
         .populate('offers')
-        .populate('skinType');
+        .populate('skinTypes');
 
       if (!userQuestionnaire) {
         throw new NotFoundException('Questionnaire not found');

@@ -1,0 +1,22 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #stepSixForm="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <div>
+          <label for="hairdo" class="form-label">W co będziesz ubrana/y oraz jakie dodatki i fryzura</label>
+          <textarea 
+            class="form-control custom-border-area" 
+            id="hairdo" 
+            style="height: 300px; resize: none;"
+            name="hairdo"
+            [(ngModel)]="stepSix.hairdo"
+          ></textarea>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-danger me-2" (click)="previous()">Wróć</button>
+        <button class="btn btn-outline-dark">Dalej</button>
+      </div>
+    </form>
+  </div>
+</div>

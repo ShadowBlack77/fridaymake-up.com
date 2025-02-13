@@ -1,0 +1,76 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #stepFourForm="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <label class="form-label">Czy ma Pani jakikolwiek problem z oczami?: Jęczmień, zaćma (katarakta), jaskra, zapalenie spojówek, odwarstwienie siatkówki, zwyrodnienie plamki żółtej?</label>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="disease-three"
+            id="disease-three-yes"
+            [value]="true"
+            [(ngModel)]="stepFour.diseaseThree"
+          >
+          <label for="disease-three-yes" class="check-form-label">Tak</label>
+        </div>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="disease-three"
+            id="disease-three-no"
+            [value]="false"
+            [(ngModel)]="stepFour.diseaseThree"
+          >
+          <label for="disease-three-no" class="form-check-label">Nie</label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Czy masz problem z błyszczeniem się twarzy po całym dniu ?</label>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="skin-shiny"
+            id="skin-shiny-yes"
+            [value]="true"
+            [(ngModel)]="stepFour.skinShiny"
+          >
+          <label for="skin-shiny-yes" class="check-form-label">Tak</label>
+        </div>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="skin-shiny"
+            id="skin-shiny-no"
+            [value]="false"
+            [(ngModel)]="stepFour.skinShiny"
+          >
+          <label for="skin-shiny-no" class="form-check-label">Nie</label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="skin-type" class="form-label">Jaki posiada Pani rodzaj skóry: sucha, normalna, mieszana, tłusta, naczynkowa, trądzikowa, ... ?</label>
+        <select 
+          class="form-select custom-border" 
+          id="skin-type"
+          name="skin-type"
+          aria-label="Skin Type Input"
+          #skinTypeModel="ngModel"
+          [(ngModel)]="stepFour.skinTypes._id"
+        >
+          <option value="" class="bg-main">Kliknij, aby rozwinąć menu</option>
+          @for (skinType of skinTypes(); track $index) {
+            <option [value]="skinType._id" class="bg-main">{{ skinType.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-danger me-2" (click)="previous()">Wróć</button>
+        <button class="btn btn-outline-dark" [disabled]="skinTypeModel.value === ''">Dalej</button>
+      </div>
+    </form>
+  </div>
+</div>

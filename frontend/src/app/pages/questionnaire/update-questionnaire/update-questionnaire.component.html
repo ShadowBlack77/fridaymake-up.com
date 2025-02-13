@@ -1,1 +1,19 @@
-<p>update-questionnaire works!</p>
+<app-questionnaire-wrapper [wrapperType]="'update'">
+  <div class="bg-main d-flex justify-content-between flex-column">
+    <app-stepper [title]="'Ankieta Modyfikacji'">
+      <app-contact-details appStepper [stepType]="'update'" />
+      <app-step-one appStepper [stepType]="'update'" />
+      <app-step-two appStepper [stepType]="'update'" />
+      <app-step-three appStepper [stepType]="'update'" />
+      <app-step-four appStepper [stepType]="'update'" />
+      <app-step-five appStepper [stepType]="'update'" />
+      <app-step-six appStepper [stepType]="'update'" />
+      <app-step-seven appStepper [stepType]="'update'" />
+      <app-step-eight appStepper [stepType]="'update'" />
+      <app-step-nine appStepper [stepType]="'update'" />
+      <app-step-ten appStepper [stepType]="'update'" />
+      <app-summary-step appStepper />
+    </app-stepper>
+  </div>
+</app-questionnaire-wrapper>
+<app-footer [footerStyle]="'dark'" />

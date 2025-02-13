@@ -16,6 +16,8 @@ import { OffersReducer } from './features/offers/store/offers.reducers';
 import { OffersEffects } from './features/offers/store/offers.effects';
 import { SkinTypesReducer } from './features/skin-types/store/skin-types.reducers';
 import { SkinTypesEffects } from './features/skin-types/store/skin-types.effects';
+import { QuestionnaireReducer } from './features/questionnaire/store/questionnaire.reducers';
+import { QuestionnaireEffects } from './features/questionnaire/store/questionnaire.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,14 +29,16 @@ export const appConfig: ApplicationConfig = {
       signIn: SignInReducer,
       auth: AuthReducer,
       offers: OffersReducer,
-      skinTypes: SkinTypesReducer
+      skinTypes: SkinTypesReducer,
+      questionnaire: QuestionnaireReducer
     }),
     provideEffects([
       LoadingScreenEffects,
       SignInEffects,
       AuthEffects,
       OffersEffects,
-      SkinTypesEffects
+      SkinTypesEffects,
+      QuestionnaireEffects
     ])
   ]
 };

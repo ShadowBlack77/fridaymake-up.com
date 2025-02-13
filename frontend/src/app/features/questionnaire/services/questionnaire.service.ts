@@ -13,4 +13,16 @@ export class QuestionnaireService {
   public get(): Observable<any> {
     return this.httpClient.get<any>(`${BACKEND_URL}/api/v1/questionnaires/`);
   }
+
+  public save(questionnaire: any): Observable<unknown> {
+    return this.httpClient.post(`${BACKEND_URL}/api/v1/questionnaires`, questionnaire);
+  }
+
+  public update(questionnaireId: string, questionnaire: any): Observable<unknown> {
+    return this.httpClient.put(`${BACKEND_URL}/api/v1/questionnaires/${questionnaireId}`, questionnaire);
+  }
+
+  public delete(questionnaireId: string): Observable<unknown> {
+    return this.httpClient.delete(`${BACKEND_URL}/api/v1/questionnaires/${questionnaireId}`);
+  }
 }

@@ -1,0 +1,35 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #stepTenForm="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <label class="form-label">Czy wyrażasz zgodę na wykorzystanie Twojego wizerunku w celu zwiększenia mojego portfolio?</label>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="use-apperance"
+            id="use-apperance-yes"
+            [value]="true"
+            [(ngModel)]="stepTen.useAppearance"
+          >
+          <label for="use-apperance-yes" class="form-check-label">Tak</label>
+        </div>
+        <div class="form-check">
+          <input 
+            type="radio"
+            class="form-check-input"
+            name="use-apperance"
+            id="use-apperance-no"
+            [value]="false"
+            [(ngModel)]="stepTen.useAppearance"
+          >
+          <label for="use-apperance-no" class="form-check-label">Nie</label>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-danger me-2" (click)="previous()">Wróć</button>
+        <button class="btn btn-outline-dark">Zapisz</button>
+      </div>
+    </form>
+  </div>
+</div>

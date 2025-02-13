@@ -1,0 +1,85 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form #contactDetailsStep="ngForm" (submit)="submitted()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Imię i nazwisko</label>
+        <input 
+          id="name"
+          name="name"
+          class="form-control custom-border"
+          type="text"
+          required
+          #nameModel="ngModel"
+          [(ngModel)]="contactDetails.name"
+          style="background-color: transparent;"
+          autocomplete="off"
+        >
+        @if (nameModel.errors && nameModel.dirty) {
+          @if (nameModel.errors['required']) {
+            <p class="lead fst-italic text-danger">*To pole jest wymagane</p>
+          }
+        }
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input 
+          type="email"
+          name="email"
+          id="email"
+          class="form-control custom-border"
+          required
+          email
+          #emailModel="ngModel"
+          [(ngModel)]="contactDetails.email"
+          autocomplete="off"
+        >
+        @if (emailModel.errors && emailModel.dirty) {
+          @if (emailModel.errors['required']) {
+            <p class="lead fst-italic text-danger">*To pole jest wymagane</p>
+          }
+  
+          @if (emailModel.errors['email']) {
+            <p class="lead fst-italic text-danger">*Adres e-mail jest nie poprawny</p>
+          }
+        }
+      </div>
+      <div class="mb-3">
+        <label for="phone-number" class="form-label">Numer telefonu</label>
+        <input 
+          type="text"
+          name="phone-number"
+          id="phone-number"
+          class="form-control custom-border"
+          required
+          #phoneNumberModel="ngModel"
+          [(ngModel)]="contactDetails.phoneNumber"
+          autocomplete="off"
+        >
+        @if (phoneNumberModel.errors && phoneNumberModel.dirty) {
+          @if (phoneNumberModel.errors['required']) {
+            <p class="lead fst-italic text-danger">*To pole jest wymagane</p>
+          }
+        }
+      </div>
+      <div class="mb-3">
+        <label for="service" class="form-label">Wybierz usługę</label>
+        <select 
+          id="service"
+          name="service"
+          class="form-select custom-border" 
+          aria-label="Service Select Input"
+          #selectedService="ngModel"
+          [(ngModel)]="contactDetails.offers._id"
+        >
+          <option value="" class="bg-main">Kliknij aby rozwinąć menu</option>
+          @for (service of offers(); track $index) {
+            <option [value]="service._id" class="bg-main">{{ service.name }} - {{ service.price }}zł</option>
+          }
+        </select>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-outline-dark" [disabled]="contactDetailsStep.invalid || selectedService.value === ''">Dalej</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.form-check-input:checked {
+  background-color: black;
+  border-color: black;
+}
+
+.text-danger {
+  font-size: 1em;
+}
+
+.bg-main {
+  background: rgb(71, 65, 65);
+  color: white;
+}
+
+.custom-border {
+  border: none;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+  outline: none;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.custom-border:focus {
+  background: transparent !important;
+  border-bottom: 1px solid #808080;
+  box-shadow: none;
+}
+
+
+.custom-border-area {
+  border: none;
+  border: 1px solid #000;
+  border-radius: 4px;
+  outline: none;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.custom-border-area:focus {
+  background: transparent !important;
+  border: 1px solid #808080;
+  box-shadow: none;
+}

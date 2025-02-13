@@ -18,6 +18,7 @@ import {
 import { authGuard, protectGuard, userResolver } from './core/auth';
 import { offersResolver } from './features';
 import { skinTypesResolver } from './features/skin-types';
+import { questionnaireResolver } from './features/questionnaire';
 
 export const routes: Routes = [
   { path: '', component: ContainerComponent, resolve: [userResolver], children: [
@@ -25,10 +26,10 @@ export const routes: Routes = [
     { path: 'price-list', resolve: [offersResolver], component: PriceListComponent },
     { path: 'portfolio', component: PortfolioComponent },
     { path: 'certificates', component: CertificatesComponent },
-    { path: 'questionnaire', canActivate: [protectGuard], resolve: [offersResolver, skinTypesResolver], component: CreateQuestionnaireComponent },
+    { path: 'questionnaire', canActivate: [protectGuard], resolve: [questionnaireResolver, offersResolver, skinTypesResolver], component: CreateQuestionnaireComponent },
     { path: 'information', component: InformationComponent, resolve: [skinTypesResolver] },
     { path: 'statute', component: StatuteComponent },
-    { path: 'account', canActivate: [protectGuard], component: AccountContainerComponent, children: [
+    { path: 'account', canActivate: [protectGuard], resolve: [questionnaireResolver], component: AccountContainerComponent, children: [
       { path: '', component: AccountInformationsComponent },
       { path: 'questionnaire', component: ShowQuestionnaireComponent },
       { path: 'questionnaire-update', resolve: [offersResolver, skinTypesResolver], component: UpdateQuestionnaireComponent }

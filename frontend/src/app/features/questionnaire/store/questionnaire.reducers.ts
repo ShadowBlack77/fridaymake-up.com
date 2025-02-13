@@ -12,7 +12,8 @@ export const QuestionnaireReducer = createReducer(
   on(questionnaireActions.getQuestionnaireSuccessfully, (state, actions) => {
     return {
       ...state,
-      questionnaire: actions.questionnaire
+      questionnaire: actions.questionnaire,
+      isQuestionnaireSaved: true
     }
   }),
   on(questionnaireActions.getQuestionnaireFailure, (state, actions) => {
@@ -37,7 +38,8 @@ export const QuestionnaireReducer = createReducer(
   on(questionnaireActions.saveQuestionnaireSuccessfully, (state, actions) => {
     return {
       ...state,
-      questionnaire: actions.questionnaire
+      questionnaire: actions.questionnaire,
+      isQuestionnaireSaved: true
     }
   }),
   on(questionnaireActions.saveQuestionnaireFailure, (state, actions) => {

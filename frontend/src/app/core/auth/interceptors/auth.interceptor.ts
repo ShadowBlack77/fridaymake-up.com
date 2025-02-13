@@ -3,11 +3,14 @@ import { AuthService } from '../services';
 import { inject } from '@angular/core';
 import { catchError, switchMap, take, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { LoadingScreenActions } from '../../../features/loading-screen/store/loading-screen.actions';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
+  const loadingScreenStore: Store<any> = inject(Store);
 
   if (req.headers.has('x-bypass-interceptor')) {
     return next(req);
@@ -42,6 +45,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(() => {
             router.navigate(['/']);
+            loadingScreenStore.dispatch(LoadingScreenActions.hideLoadingScreen());
 
             return throwError(() => new Error('Sessionexpired. User has been logged out'));
           })

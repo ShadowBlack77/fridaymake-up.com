@@ -1,0 +1,120 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    @if (questionnaire()) {
+      <div>
+        <div class="py-3">
+          <h2 class="display-5 text-center">Moja Ankieta</h2>
+        </div>
+        <div>
+          <p class="lead">
+            <strong>Imię i Nazwisko:</strong> {{ questionnaire()?.name }}
+          </p>
+          <p class="lead">
+            <strong>Email:</strong> {{ questionnaire()?.email }}
+          </p>
+          <p class="lead">
+            <strong>Numer Telefonu:</strong> {{ questionnaire()?.phoneNumber }}
+          </p>
+          <p class="lead">
+            <strong>Wybrana Oferta</strong> {{ questionnaire()?.offers?.name }}
+          </p>
+          <p class="lead">
+            <strong>Czy jest Pani uczulona? Jeśli tak to na jaki kosmetyk/składnik?:</strong> {{ questionnaire()?.allergy ? 'Tak' : 'Nie' }}
+          </p>
+          @if (questionnaire()?.allergy) {
+            <p class="lead">
+              <strong>Proszę wpisać nazwę kosmetyku/składnika:</strong> {{ questionnaire()?.allergyIngredients }}
+            </p>
+          }
+          <p class="lead">
+            <strong>Czy posiadasz zmiany skórne takie jak: otwarte ranki, szwy, świeże rany, sączące się rany, zmiany wirusowe, bakteryjne oraz grzybicze?:</strong> {{ questionnaire()?.skinChanges ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy nosisz szkła kontaktowe?:</strong> {{ questionnaire()?.lenses ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy zażywa Pani jakieś leki?:</strong> {{ questionnaire()?.medicines ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy występują przewlekłe problemy skórne?:</strong> {{ questionnaire()?.skinDiseases ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy ma Pani przeciwwskazania na jakikolwiek składnik kosmetyków?:</strong> {{ questionnaire()?.cosmeticsIngredients ? 'Tak' : 'Nie' }}
+          </p>
+          @if (questionnaire()?.whichIngredients) {
+            <p class="lead">
+              <strong>Proszę wpisać nazwę składnika:</strong> {{ questionnaire()?.whichIngredients }}
+            </p>
+          }
+          <p class="lead">
+            <strong>Czy miała Pani kiedykolwiek opryszczkę/febrę/zimę ?:</strong> {{ questionnaire()?.diseaseOne ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy jest/była Pani nosicielem gronkowca ?:</strong> {{ questionnaire()?.diseaseTwo ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy ma Pani jakikolwiek problem z oczami?: Jęczmień, zaćma (katarakta), jaskra, zapalenie spojówek, odwarstwienie siatkówki, zwyrodnienie plamki żółtej?:</strong> {{ questionnaire()?.diseaseThree ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Czy masz problem z błyszczeniem się twarzy po całym dniu?:</strong> {{ questionnaire()?.skinShiny ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Jaki posiada Pani rodzaj skóry: sucha, normalna, mieszana, tłusta, naczynkowa, trądzikowa, ...?:</strong> {{ questionnaire()?.skinTypes?.name }}
+          </p>
+          <p class="lead">
+            <strong>Jakiego makijażu/charakteryzacji oczekujesz:</strong> {{ questionnaire()?.expectedEffect ? questionnaire()?.expectedEffect : 'Brak Informacji' }}
+          </p>
+          <p class="lead">
+            <strong>W co będziesz ubrana/y oraz jakie dodatki i fryzura:</strong> {{ questionnaire()?.hairdo ? questionnaire()?.hairdo : 'Brak Informacji' }}
+          </p>
+          <p class="lead">
+            <strong>Co lubisz w makijażu:</strong> {{ questionnaire()?.makeUp ? questionnaire()?.makeUp : 'Brak Informacji' }}
+          </p>
+          <p class="lead">
+            <strong>Co lubisz czuć na skórze po aplikacji kremu:</strong> {{ questionnaire()?.cream ? questionnaire()?.cream : 'Brak Informacji' }}
+          </p>
+          <p class="lead">
+            <strong>Czy wyrażasz zgodę na wykorzystanie Twojego wizerunku w celu zwiększenia mojego portfolio?:</strong> {{ questionnaire()?.useAppearance ? 'Tak' : 'Nie' }}
+          </p>
+          <p class="lead">
+            <strong>Wybrana Data:</strong> {{ questionnaire()?.selectedDate ? parseDate(questionnaire()!.selectedDate) : 'Brak Informacji' }}
+          </p>
+          <p class="lead">
+            <strong>Wybrana Godzina:</strong> {{ questionnaire()?.selectedHour ? questionnaire()?.selectedHour?.substring(0, 5) : 'Brak Informacji' }}
+          </p>
+        </div>
+        <div class="text-center">
+          <button 
+            class="btn btn-outline-dark"
+            data-bs-toggle="modal" 
+            data-bs-target="#exampleModal"
+          >Usuń ankietę</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<div 
+  class="modal fade" 
+  id="exampleModal" 
+  tabindex="-1" 
+  aria-labelledby="exampleModalLabel" 
+  aria-hidden="true" 
+  style="z-index: 9999;"
+>
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Czy na pewno chcesz usunąć ankietę?</h1>
+      </div>
+      <div class="modal-body text-light">
+        Po usunięciu ankiety będziesz mogła wypełnić ją raz jeszcze.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="removeQuestionnaire(questionnaire()!._id)">Potwierdź</button>
+      </div>
+    </div>
+  </div>
+</div>

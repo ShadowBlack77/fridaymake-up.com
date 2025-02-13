@@ -151,7 +151,8 @@ export class Questionnaire {
   @Prop({
     type: Types.ObjectId,
     ref: 'Offers',
-    required: true
+    required: true,
+    unique: true
   })
   readonly offers: Types.ObjectId;
 
@@ -160,7 +161,7 @@ export class Questionnaire {
     ref: 'SkinTypes',
     required: true
   })
-  readonly skinType: Types.ObjectId;
+  readonly skinTypes: Types.ObjectId;
 }
 
 export const QuestionnaireSchema = SchemaFactory.createForClass(Questionnaire);
