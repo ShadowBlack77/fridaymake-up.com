@@ -5,11 +5,16 @@ import { FeaturesModule } from './features/features.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 60
+    }]),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', '/backend/frontend-dist/frontend/browser')
+      rootPath: join(__dirname, '..', 'frontend-dist', 'frontend', 'browser')
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MOGNO_URI as string),

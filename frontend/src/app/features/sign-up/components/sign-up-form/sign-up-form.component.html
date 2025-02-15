@@ -81,6 +81,9 @@
     <p>
       <i>Pola oznaczone <strong>*</strong> są wymagane!</i>
     </p>
+    @if (errors()) {
+      <p class="text-danger fst-italic lead">{{ errors() }}</p>
+    }
     @if (signUpForm.get('email')?.hasError('email') && (signUpForm.get('email')?.dirty)) {
       <div>
         <p>Adres email nie jest poprawny.</p>

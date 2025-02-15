@@ -9,6 +9,8 @@ import {
   InformationComponent, 
   PortfolioComponent, 
   PriceListComponent, 
+  ResetPasswordComponent, 
+  SendResetEmailPasswordComponent, 
   ShowQuestionnaireComponent, 
   SignInComponent, 
   SignUpComponent, 
@@ -17,7 +19,9 @@ import {
 } from '@pages';
 import { 
   authGuard, 
+  emailVerificationGuard, 
   protectGuard, 
+  sessionValidationGuard, 
   userResolver 
 } from '@core';
 import { 
@@ -33,7 +37,7 @@ export const routes: Routes = [
     { path: 'price-list', resolve: [offersResolver], component: PriceListComponent },
     { path: 'portfolio', component: PortfolioComponent },
     { path: 'certificates', component: CertificatesComponent },
-    { path: 'questionnaire', canActivate: [protectGuard], resolve: [questionnaireResolver, offersResolver, skinTypesResolver], component: CreateQuestionnaireComponent },
+    { path: 'questionnaire', canActivate: [protectGuard, emailVerificationGuard], resolve: [questionnaireResolver, offersResolver, skinTypesResolver], component: CreateQuestionnaireComponent },
     { path: 'information', component: InformationComponent, resolve: [skinTypesResolver] },
     { path: 'statute', component: StatuteComponent },
     { path: 'account', canActivate: [protectGuard], resolve: [questionnaireResolver], component: AccountContainerComponent, children: [
@@ -44,6 +48,8 @@ export const routes: Routes = [
   ]},
   { path: 'auth', canActivate: [authGuard], children: [
     { path: 'sign-in', component: SignInComponent },
-    { path: 'sign-up', component: SignUpComponent }
+    { path: 'sign-up', component: SignUpComponent },
+    { path: 'send-reset-email-password', component: SendResetEmailPasswordComponent },
+    { path: 'reset-password/:sessionId', canActivate: [sessionValidationGuard], component: ResetPasswordComponent }
   ]}
 ];

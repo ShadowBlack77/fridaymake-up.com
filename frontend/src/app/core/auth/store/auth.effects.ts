@@ -9,6 +9,7 @@ import { QuestionnaireService } from "../../../features/questionnaire/services/q
 import { LoadingScreenActions } from "../../../features/loading-screen/store/loading-screen.actions";
 import { UserModel } from "../models";
 import { LoadingScreenState } from "../../../features/loading-screen/store/loading-screen.state";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class AuthEffects {
@@ -61,5 +62,58 @@ export class AuthEffects {
         )
       })
     )
-  })
+  });
+
+  public sendEmailVerification = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authActions.sendEmailVerification),
+      switchMap(() => {
+        return this.authService.sendEmailVerification().pipe(
+          take(1),
+          map(() => {
+            return authActions.sendEmailVerificationSuccessfully();
+          })
+        )
+      })
+    )
+  });
+
+  public sendEmailResetPassword = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authActions.sendEmailResetPassword),
+      switchMap(({ email }) => {
+        return this.authService.sendEmailResetPassword({ email: email }).pipe(
+          take(1),
+          map(() => {
+            return authActions.sendEmailResetPasswordSuccessfully();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            let errorMessage: string = 'Server Error';
+
+            if (errorResponse.error.message.toLowerCase().includes('not found')) {
+              errorMessage = 'Adres email nie został znaleziony w bazie danych. Oznacza to, że nie jest przypisany do żadnego konta!';
+            }
+
+            return of(authActions.sendEmailResetPasswordFailure({ error: errorMessage }));
+          })
+        )
+      })
+    )
+  });
+
+  public resetPassword = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authActions.resetPassword),
+      switchMap(({ newPassword, sessionId }) => {
+        return this.authService.resetPassword(newPassword, sessionId).pipe(
+          take(1),
+          map(() => {
+            this.router.navigate(['/auth/sign-in']);
+
+            return authActions.resetPasswordSuccessfully();
+          })
+        )
+      })
+    )
+  });
 }

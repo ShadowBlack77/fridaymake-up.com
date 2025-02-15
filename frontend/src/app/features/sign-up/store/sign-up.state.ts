@@ -1,7 +1,7 @@
-import { createFeatureSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 export interface SignUpState {
-  readonly error: String | null;
+  readonly error: string | null;
 }
 
 export namespace SignUpState {

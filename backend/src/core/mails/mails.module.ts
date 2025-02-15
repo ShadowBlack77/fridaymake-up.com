@@ -5,9 +5,11 @@ import { MailsService } from './mails.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forFeature([
       { name: EmailTokens.name, schema: EmailTokensSchema },
       { name: User.name, schema: UserSchema }

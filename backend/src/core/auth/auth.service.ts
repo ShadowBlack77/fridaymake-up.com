@@ -9,12 +9,16 @@ import * as argon from 'argon2';
 import { SignUpDto } from 'src/libs/models/sign-up';
 import { SignInDto } from 'src/libs/models/sign-in';
 import { MailsService } from '../mails/mails.service';
+import { EmailTemplatesEnum, EmailTokensTypes } from 'src/libs/enums';
+import { AuthSession } from 'src/libs/schemas/auth-sessions.schema';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
 
   constructor(
     @InjectModel(User.name) private readonly UserModel: Model<User>,
+    @InjectModel(AuthSession.name) private readonly AuthModel: Model<AuthSession>,
     private readonly jwtService: JwtService,
     private readonly mailsSerivce: MailsService
   ) {}
@@ -29,7 +33,7 @@ export class AuthService {
       const userExists = await this.UserModel.findOne({ email: signUpDto.email });
 
       if (userExists) {
-        throw new ConflictException('Username or Email is aready taken');
+        throw new ConflictException('Username or Email is already taken');
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -70,6 +74,11 @@ export class AuthService {
 
       const hashedAccessToken = await argon.hash(accessToken)
       const hashedRefreshToken = await argon.hash(refreshToken);
+
+      if (!user.isEmailVerified) {
+        const { token } = await this.mailsSerivce.generateEmailTokens(user._id, EmailTokensTypes.VERIFY_EMAIL);
+        this.mailsSerivce.sendMail(user.email, 'Fridaymake-up.com - Weryfikacja adresu email', { token: token }, EmailTemplatesEnum.EMAIL_VERIFICATION);
+      }
 
       await user.updateOne({
         storedAccessToken: hashedAccessToken,
@@ -137,7 +146,7 @@ export class AuthService {
 
       res.cookie('fridaymake-up-at', accessToken, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'strict',
         maxAge: 15 * 60 * 1000
       });
@@ -167,6 +176,151 @@ export class AuthService {
     }
   }
 
+  public async sendEmailVerification(req: Request | any, res: Response) {
+
+    const userEmail = req.user.email;
+    const userId = req.user.sub;
+    const isEmailVerified = req.user.isEmailVerified;
+
+    if (isEmailVerified) {
+      throw new ConflictException('user email is already verified');
+    }
+
+    const { token } = await this.mailsSerivce.generateEmailTokens(userId, EmailTokensTypes.VERIFY_EMAIL);
+    this.mailsSerivce.sendMail(userEmail, 'Fridaymake-up.com - Weryfikacja adresu email', { token: token }, EmailTemplatesEnum.EMAIL_VERIFICATION);
+
+    return res.status(200).json({ content: 'email send successfully' });
+  }
+
+  public async sendEmailResetPassword(res: Response, sendEmailDto: { email: string }) {
+    try {
+      
+      const user = await this.UserModel.findOne({
+        email: sendEmailDto.email
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      const { token } = await this.mailsSerivce.generateEmailTokens(user?._id, EmailTokensTypes.RESET_PASSWORD);
+      this.mailsSerivce.sendMail(sendEmailDto.email, 'Fridaymake-up.com - Resetowanie hasła', { token: token, email: sendEmailDto.email }, EmailTemplatesEnum.RESET_PASSWORD);
+
+      return res.status(200).json({ content: 'email send successfully' });
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async emailVerification(res: Response, token: string, email?: string) {
+    try {
+      const result = await this.mailsSerivce.checkTokenValidation(token);
+
+      if (result.emailType === EmailTokensTypes.VERIFY_EMAIL) {
+        return res.redirect(`${process.env.FRONTEND_URL}`);
+      } 
+
+      if (email) {
+        const authSessionToken = await this.generateAuthSessionToken(email);
+
+        return res.redirect(`${process.env.FRONTEND_URL}/auth/reset-password/${authSessionToken}`);
+      }
+
+      throw new InternalServerErrorException('Error occured while trying verify email');
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  public async changeUserPassword(res: Response, sessionId: string, changeUserPasswordDto: { newPassword: string }) {
+    try {
+      const sessionToken = await this.AuthModel.findOne({
+        authSessionId: sessionId
+      });
+
+      if (!sessionToken) {
+        throw new UnauthorizedException('Invalid or expired token');
+      }
+
+      if (new Date() > sessionToken.expiresAt) {
+        throw new UnauthorizedException("Invalid or expired token");
+      }
+
+      const user = await this.UserModel.findOne({ _id: sessionToken.user });
+      
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      await this.AuthModel.deleteOne({
+        authSessionId: sessionId
+      });
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(changeUserPasswordDto.newPassword, salt);
+
+      await user.updateOne({
+        password: hashedPassword
+      });
+      user.save();
+
+      return res.status(200).json({ content: 'changed' })
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);      
+    }
+  }
+
+  public async checkSessionValidation(res: Response, token: string) {
+    try {
+      const sessionToken = await this.AuthModel.findOne({
+        authSessionId: token
+      });
+
+      if (!sessionToken) {
+        throw new UnauthorizedException('Invalid or expired token');
+      }
+
+      if (new Date() > sessionToken.expiresAt) {
+        throw new UnauthorizedException("Invalid or expired token");
+      }
+
+      return res.status(200).json({ content: 'valid' });
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  private async generateAuthSessionToken(email: string) {
+    try {
+      const user = await this.UserModel.findOne({
+        email
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      await this.AuthModel.deleteOne({
+        user: user._id
+      });
+
+      const authSessionToken = uuidv4();
+      const expiresAt = new Date();
+
+      expiresAt.setMinutes(expiresAt.getMinutes() + 15);
+
+      await this.AuthModel.create({
+        authSessionId: authSessionToken,
+        expiresAt: expiresAt,
+        user: user._id
+      });
+
+      return authSessionToken;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
   private async generateTokens(payload: any) {
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: process.env.JWT_SECRET,
@@ -184,14 +338,14 @@ export class AuthService {
   private async setCookies(res: Response, accessToken: string, refreshToken: string) {
     res.cookie('fridaymake-up-at', accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'strict',
       maxAge: 15 * 60 * 1000
     });
 
     res.cookie('fridaymake-up-rt', refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000
     })

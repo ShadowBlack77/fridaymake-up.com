@@ -1,0 +1,1 @@
+export * from './send-email-reset-password-form/send-email-reset-password-form.component';

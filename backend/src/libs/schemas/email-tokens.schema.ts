@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
+import { EmailTokensTypes } from "../enums/email-types.enum";
 
 @Schema({
   timestamps: true
@@ -17,6 +18,15 @@ export class EmailTokens {
     type: Date,
     required: true
   })
+  readonly expiresAt: Date;
+
+  @Prop({
+    type: String,
+    required: true,
+    enum: EmailTokensTypes,
+    default: EmailTokensTypes.VERIFY_EMAIL
+  })
+  readonly emailType: EmailTokensTypes
 
   @Prop({
     type: Types.ObjectId,

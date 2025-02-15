@@ -35,5 +35,53 @@ export const AuthReducer = createReducer(
     return {
       ...state
     }
+  }),
+  on(authActions.sendEmailVerification, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.sendEmailVerificationSuccessfully, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.sendEmailVerificationFailure, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.sendEmailResetPassword, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.sendEmailResetPasswordSuccessfully, (state) => {
+    return {
+      ...state,
+      error: null
+    }
+  }),
+  on(authActions.sendEmailResetPasswordFailure, (state, actions) => {
+    return {
+      ...state,
+      error: actions.error
+    }
+  }),
+  on(authActions.resetPassword, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.resetPasswordSuccessfully, (state) => {
+    return {
+      ...state
+    }
+  }),
+  on(authActions.resetPasswordFailure, (state, actions) => {
+    return {
+      ...state,
+      error: actions.error
+    }
   })
 );

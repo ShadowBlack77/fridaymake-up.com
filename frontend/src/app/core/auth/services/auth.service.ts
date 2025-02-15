@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, of, take } from 'rxjs';
 import { BACKEND_URL } from '../../env';
 import { UserModel } from '../models';
 import { SignInModel } from '@features';
@@ -55,5 +55,27 @@ export class AuthService {
       withCredentials: true,
       headers: this.defaultHeaders
     })
+  }
+
+  public sendEmailVerification(): Observable<unknown> {
+    return this.httpClient.post<unknown>(`${BACKEND_URL}/api/v1/auth/send-email-verification`, { content: 'Email Verify' });
+  }
+
+  public sendEmailResetPassword(emailObject: { email: string }): Observable<unknown> {
+    return this.httpClient.post<unknown>(`${BACKEND_URL}/api/v1/auth/send-email-reset-password`, emailObject.email, {
+      headers: this.defaultHeaders
+    });
+  }
+
+  public checkSessionTokenValidation(token: string): Observable<unknown> {
+    return this.httpClient.get(`${BACKEND_URL}/api/v1/auth/check-session-validation/${token}`, {
+      headers: this.defaultHeaders
+    });
+  }
+
+  public resetPassword(newPasswordObject: { newPassword: string, newPasswordConfirmation: string }, sessionId: string): Observable<unknown> {
+    return this.httpClient.post(`${BACKEND_URL}/api/v1/auth/change-user-password/${sessionId}`, { newPassword: newPasswordObject.newPassword }, {
+      headers: this.defaultHeaders
+    });
   }
 }

@@ -8,6 +8,7 @@ import { QuestionnaireState } from '../../../questionnaire/store/questionnaire.s
 import { QuestionnaireModel } from '@features';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserModel } from '@core';
+import { authActions } from '../../../../core/auth/store/auth.actions';
 
 @Component({
   selector: 'app-account-data',
@@ -26,6 +27,8 @@ export class AccountDataComponent implements OnInit, OnDestroy {
 
   public questionnaire: WritableSignal<QuestionnaireModel | null> = signal(null);
   public user: WritableSignal<UserModel | null> = signal(null);
+  public emailVerificationButton: WritableSignal<string> = signal('Zweryfikuj');
+  public disableVerificationButton: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
     this.authStore.select(AuthState.selectUser).pipe(
@@ -51,7 +54,9 @@ export class AccountDataComponent implements OnInit, OnDestroy {
   }
 
   public sendEmailVerification(): void {
-    console.log('Verify!');
+    this.authStore.dispatch(authActions.sendEmailVerification());
+    this.emailVerificationButton.set('Wysłano wiadomość');
+    this.disableVerificationButton.set(true);
   }
 
   ngOnDestroy(): void {

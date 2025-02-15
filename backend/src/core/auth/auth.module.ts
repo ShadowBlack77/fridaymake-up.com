@@ -7,12 +7,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './guards/jwt/jwt.guard';
 import { MailsService } from '../mails/mails.service';
+import { AuthSession, AuthSessionSchema } from 'src/libs/schemas/auth-sessions.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
-      { name: EmailTokens.name, schema: EmailTokensSchema }
+      { name: EmailTokens.name, schema: EmailTokensSchema },
+      { name: AuthSession.name, schema: AuthSessionSchema }
     ]),
     JwtModule.register({
       global: true,

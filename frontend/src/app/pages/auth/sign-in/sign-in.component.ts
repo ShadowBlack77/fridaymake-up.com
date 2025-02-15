@@ -4,7 +4,7 @@ import { SignInFormComponent } from '@features';
 @Component({
   selector: 'app-sign-in',
   imports: [
-    SignInFormComponent
+    SignInFormComponent,
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'

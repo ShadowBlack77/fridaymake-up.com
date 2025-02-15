@@ -25,9 +25,14 @@ export class SignUpEffects {
             return signUpAcitons.signUpSuccessfully();
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            console.log(errorResponse);
+            let errorMessage: string = '';
+
+            if (errorResponse.error.message.toLowerCase().includes('already taken')) {
+              errorMessage = 'Email lub Nazwa użtywkonika są już zajęte!';
+            }
+
             
-            return of(signUpAcitons.signUpFailure({ errors: '' }));
+            return of(signUpAcitons.signUpFailure({ error: errorMessage }));
           })  
         )
       })

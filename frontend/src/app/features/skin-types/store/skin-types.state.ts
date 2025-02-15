@@ -12,7 +12,6 @@ export namespace SkinTypesState {
 
   export const selectSkinTypesState = createFeatureSelector<SkinTypesState>('skinTypes');
   export const selectSkinTypes = createSelector(selectSkinTypesState, (state: SkinTypesState) => {
-    console.log(state);
     return state.skinTypes
   });
 }

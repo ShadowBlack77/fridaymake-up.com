@@ -18,7 +18,7 @@ export const SignUpReducer = createReducer(
   on(signUpAcitons.signUpFailure, (state, props) => {
     return {
       ...state,
-      error: props.errors
+      error: props.error
     }
   })
 )

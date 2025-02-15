@@ -6,3 +6,5 @@ export * from './skin-types/index';
 export * from './questionnaire/index';
 export * from './account/index';
 export * from './sign-up/index';
+export * from './send-email-reset-password/index';
+export * from './reset-password/index';

@@ -6,6 +6,6 @@ export const signUpAcitons = createActionGroup({
   events: {
     'Sign Up': props<{ signUp: SignUpModel }>(),
     'Sign Up Successfully': emptyProps(),
-    'Sign Up Failure': props<{ errors: string }>()
+    'Sign Up Failure': props<{ error: string }>()
   }
 });

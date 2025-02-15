@@ -12,7 +12,9 @@
         <p>
           Przejdź na swoją skrzynkę e-mail i kliknij w wiadomość. Jeżeli wiadomość nie przyszła, kliknij poniższy przycisk, czas oczekiwania na wiadomość to około 5 minut.
         </p>
-        <button class="btn btn-outline-dark btn-sm" (click)="sendEmailVerification()">Zweryfikuj</button>
+        <button class="btn btn-outline-dark btn-sm" (click)="sendEmailVerification()" [disabled]="disableVerificationButton()">
+          {{ emailVerificationButton() }}
+        </button>
       }
     </div>
     <div>
