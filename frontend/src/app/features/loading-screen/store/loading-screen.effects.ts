@@ -20,6 +20,10 @@ export class LoadingScreenEffects {
           zIndex: 9999
         });
 
+        gsap.to('body', {
+          overflowY: 'hidden'
+        });
+
         return LoadingScreenActions.showLoadingScreenSuccessfully();
       })
     )
@@ -34,7 +38,11 @@ export class LoadingScreenEffects {
           duration: 0.25,
           opacity: 0,
           zIndex: -9999
-        })
+        });
+
+        gsap.to('body', {
+          overflowY: 'auto'
+        });
 
         return LoadingScreenActions.hideLoadingScreenSuccessfully();
       })
