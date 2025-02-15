@@ -20,7 +20,7 @@ export class StepTenComponent implements OnInit, OnDestroy {
 
   @Input() stepType: string = 'new';
 
-  private readonly questionnaireStore: Store<any> = inject(Store);
+  private readonly questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly stepperService: StepperService = inject(StepperService);
   private readonly questionnaire: Signal<QuestionnaireModel | null | undefined> = toSignal(this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire));
   private readonly destroy$: Subject<void> = new Subject<void>();
@@ -37,7 +37,7 @@ export class StepTenComponent implements OnInit, OnDestroy {
       switchMap(() => {
         return this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire).pipe(
           takeUntil(this.destroy$),
-          map((questionnaire: QuestionnaireModel | null) => {
+          map((questionnaire: QuestionnaireModel | undefined) => {
             if (questionnaire) {
               this.stepTen = {
                 useAppearance: questionnaire.useAppearance ? questionnaire.useAppearance : false
@@ -60,11 +60,11 @@ export class StepTenComponent implements OnInit, OnDestroy {
     
     this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire).pipe(
       take(1),
-      map((questionnaire: QuestionnaireModel | null) => {
+      map((questionnaire: QuestionnaireModel | undefined) => {
         if (this.stepType === 'new') {
-          this.questionnaireStore.dispatch(questionnaireActions.saveQuestionnaire({ questionnaire }));
+          this.questionnaireStore.dispatch(questionnaireActions.saveQuestionnaire({ questionnaire: questionnaire! }));
         } else {
-          this.questionnaireStore.dispatch(questionnaireActions.updateQuestionnaire({ questionnaire }));
+          this.questionnaireStore.dispatch(questionnaireActions.updateQuestionnaire({ questionnaire: questionnaire! }));
         }
       })
     ).subscribe();

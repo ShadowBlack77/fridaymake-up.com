@@ -5,6 +5,15 @@
         Witaj, {{ user()?.username }}
       </h2>
       <p class="lead">Email: <span class="fst-italic">{{ user()?.email }}</span></p>
+      @if (!user()?.isEmailVerified) {
+        <p class="lead fst-italic text-danger" style="font-size: 1em;">
+          Uwaga! Email nie jest zweryfikowany!
+        </p>
+        <p>
+          Przejdź na swoją skrzynkę e-mail i kliknij w wiadomość. Jeżeli wiadomość nie przyszła, kliknij poniższy przycisk, czas oczekiwania na wiadomość to około 5 minut.
+        </p>
+        <button class="btn btn-outline-dark btn-sm" (click)="sendEmailVerification()">Zweryfikuj</button>
+      }
     </div>
     <div>
       <ul class="list-group list-group-flush">

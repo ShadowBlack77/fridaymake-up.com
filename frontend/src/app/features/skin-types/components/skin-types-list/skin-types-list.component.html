@@ -3,11 +3,11 @@
     <h2>Opis cer</h2>
     <p class="lead">Wiadomości zawarte w tym miejscu pomogą w wypełnienu ankiety.</p>
   </div>
-  <div class="row row-gap-3">
+  <div class="row row-gap-3 d-flex justify-content-center">
     @for (skinType of skinTypes(); track skinType._id) {
-      <div class="col-12 col-md-4">
+      <div class="col-8">
         <div class="card">
-          <div class="card-body" style="background-color: rgba(0, 0, 0, .1);">
+          <div class="card-body">
             <h5 class="card-title">{{ skinType.name }}</h5>
             <p class="card-text">
               {{ skinType.description }}

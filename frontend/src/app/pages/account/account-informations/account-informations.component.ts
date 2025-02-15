@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../../../shared/footer';
-import { AccountDataComponent } from '../../../features/account';
+import { FooterComponent } from '@shared';
+import { AccountDataComponent } from '@features';
 
 @Component({
   selector: 'app-account-informations',

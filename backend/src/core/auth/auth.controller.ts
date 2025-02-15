@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
 import { GetCurrentUserId, Public } from 'src/libs/decorators';
 import { RefreshTokenGuard } from './guards/refresh-token/refresh-token.guard';
+import { SignUpRequest } from 'src/libs/models/sign-up';
+import { SignInRequest } from 'src/libs/models/sign-in';
 
 @Controller('auth')
 export class AuthController {
@@ -11,18 +13,18 @@ export class AuthController {
 
   @Public()
   @Post('/sign-up')
-  public signUp(@Res() res: Response, @Body() signUpRequest: any) {
+  public signUp(@Res() res: Response, @Body() signUpRequest: SignUpRequest) {
     return this.authService.signUp(res, signUpRequest);
   }
 
   @Public()
   @Post('/sign-in')
-  public signIn(@Res() res: Response, @Body() signInRequest: any) {
+  public signIn(@Res() res: Response, @Body() signInRequest: SignInRequest) {
     return this.authService.signIn(res, signInRequest);
   }
 
   @Post('/sign-out')
-  public signOut( @Res() res: Response) {
+  public signOut(@Res() res: Response) {
     return this.authService.signOut(res);
   }
 
@@ -41,5 +43,15 @@ export class AuthController {
   @Get('/user')
   public getUser(@Res() res: Response, @GetCurrentUserId() userId: string) {
     return this.authService.getUser(res, userId);
+  }
+
+  @Post('/send-email-verification')
+  public sendEmailVerification() {
+
+  }
+
+  @Get('/email-verify')
+  public emailVerification() {
+    
   }
 }

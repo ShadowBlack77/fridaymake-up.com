@@ -20,7 +20,7 @@ export class StepNineComponent implements OnInit, OnDestroy {
   
   @Input() stepType: string = 'new';
 
-  private readonly questionnaireStore: Store<any> = inject(Store);
+  private readonly questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly stepperService: StepperService = inject(StepperService);
   private readonly questionnaire: Signal<QuestionnaireModel | null | undefined> = toSignal(this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire));
   private readonly destroy$: Subject<void> = new Subject<void>();
@@ -38,7 +38,7 @@ export class StepNineComponent implements OnInit, OnDestroy {
       switchMap(() => {
         return this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire).pipe(
           takeUntil(this.destroy$),
-          map((questionnaire: QuestionnaireModel | null) => {
+          map((questionnaire: QuestionnaireModel | undefined) => {
             if (questionnaire) {
               this.stepNine = {
                 selectedDate: questionnaire.selectedDate ? questionnaire.selectedDate : new Date(),

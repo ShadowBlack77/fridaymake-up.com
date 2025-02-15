@@ -5,6 +5,7 @@ import { SkinTypesModel } from '../../models';
 import { SkinTypesState } from '../../store/skin-types.state';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoadingScreenActions } from '../../../loading-screen/store/loading-screen.actions';
+import { LoadingScreenState } from '../../../loading-screen/store/loading-screen.state';
 
 @Component({
   selector: 'app-skin-types-list',
@@ -14,8 +15,8 @@ import { LoadingScreenActions } from '../../../loading-screen/store/loading-scre
 })
 export class SkinTypesListComponent implements OnInit, OnDestroy {
 
-  private readonly skinTypesStore: Store<any> = inject(Store);
-  private readonly loadingScreenStore: Store<any> = inject(Store);
+  private readonly skinTypesStore: Store<SkinTypesState> = inject(Store);
+  private readonly loadingScreenStore: Store<LoadingScreenState> = inject(Store);
   private readonly destroy$: Subject<void> = new Subject<void>();
 
   public skinTypes: WritableSignal<SkinTypesModel[] | undefined> = signal(undefined);

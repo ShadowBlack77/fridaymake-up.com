@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { User } from 'src/libs/schemas';
@@ -6,17 +6,26 @@ import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as argon from 'argon2';
+import { SignUpDto } from 'src/libs/models/sign-up';
+import { SignInDto } from 'src/libs/models/sign-in';
+import { MailsService } from '../mails/mails.service';
 
 @Injectable()
 export class AuthService {
 
   constructor(
     @InjectModel(User.name) private readonly UserModel: Model<User>,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly mailsSerivce: MailsService
   ) {}
 
-  public async signUp(res: Response, signUpDto: any) {
+  public async signUp(res: Response, signUpDto: SignUpDto) {
     try {
+      
+      if (signUpDto.password !== signUpDto.passwordConfirmation) {
+        throw new ConflictException('Passwords are not the same');
+      }
+
       const userExists = await this.UserModel.findOne({ email: signUpDto.email });
 
       if (userExists) {
@@ -27,6 +36,8 @@ export class AuthService {
       const hashedPassword = await bcrypt.hash(signUpDto.password, salt);
 
       await this.UserModel.create({
+        firstName: signUpDto.firstName,
+        lastName: signUpDto.lastName,
         username: signUpDto.username,
         email: signUpDto.email,
         password: hashedPassword
@@ -40,7 +51,7 @@ export class AuthService {
     }
   }
 
-  public async signIn(res: Response, signInDto: any) {
+  public async signIn(res: Response, signInDto: SignInDto) {
     try {
       const user = await this.UserModel.findOne({ email: signInDto.email });
 
@@ -54,7 +65,7 @@ export class AuthService {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const payload = { sub: user._id, email: user.email, role: user.role };
+      const payload = { sub: user._id, email: user.email, role: user.role, isEmailVerified: user.isEmailVerified };
       const { accessToken, refreshToken } = await this.generateTokens(payload);
 
       const hashedAccessToken = await argon.hash(accessToken)
@@ -144,7 +155,7 @@ export class AuthService {
   public async getUser(res: Response, userId: string) {
     try {
       const user = await this.UserModel.findOne({ _id: new Types.ObjectId(userId) })
-        .select('username role email _id');
+        .select('username role email _id isEmailVerified');
 
       if (!user) {
         throw new NotFoundException('User not found');

@@ -1,6 +1,6 @@
 <div class="bg-main">
   <div  class="container py-5">
-    <div id="hero-section" class="row">
+    <div id="hero-section" class="row" [appAnimation]="animations[0]">
       <div class="col-12 col-md-6 pt-5 px-4 order-2 order-md-1">
         <div>
           <h1>
@@ -22,7 +22,7 @@
     </div>
     <div class="container px-4 py-5" id="featured-3">
       <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-        <div id="hero-col-one" class="feature col" style="position: relative !important;">
+        <div id="hero-col-one" class="feature col" style="position: relative !important;" [appAnimation]="animations[1]">
           <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded text-bg-dark bg-gradient fs-4 mb-3" style="width: 35px; height: 35px;">
             <i class="bi bi-trophy"></i>
           </div>
@@ -31,7 +31,7 @@
             Dla nas każda klientka jest wyjątkowa, a spełnianie jej oczekiwań to nasz priorytet.
           </p>
         </div>
-        <div id="hero-col-two" class="feature col" style="position: relative !important;">
+        <div id="hero-col-two" class="feature col" style="position: relative !important;" [appAnimation]="animations[2]">
           <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded text-bg-dark bg-gradient fs-4 mb-3" style="width: 35px; height: 35px;">
             <i class="bi bi-star"></i>
           </div>
@@ -40,7 +40,7 @@
             Wykorzystujemy najwyższej jakości produkty, co przekłada się na spektakularne efekty.
           </p>
         </div>
-        <div id="hero-col-three" class="feature col" style="position: relative !important;">
+        <div id="hero-col-three" class="feature col" style="position: relative !important;" [appAnimation]="animations[3]">
           <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded text-bg-dark bg-gradient fs-4 mb-3" style="width: 35px; height: 35px;">
             <i class="bi bi-heart"></i>
           </div>
@@ -57,9 +57,9 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-12 col-xl-6 mb-3 text-center">
-        <img id="contant-image" src="./imgs/home/zdj17-scaled.jpg" alt="Makijaż fotograficzny" class="img-fluid rounded">
+        <img id="contant-image" src="https://res.cloudinary.com/dfv7maike/image/upload/v1739556670/makijaz-fotograficzny_aatgeq.jpg" alt="Makijaż fotograficzny" class="img-fluid rounded" [appAnimation]="animations[4]">
       </div>
-      <div id="content-desc" class="col-12 col-xl-6 text-light">
+      <div id="content-desc" class="col-12 col-xl-6 text-light" [appAnimation]="animations[5]">
         <h2>Kilka słów o mnie</h2>
         <p class="lead">
           Jestem Martyna, mam 19 lat i wizażem interesuję się od małego dzieciaka, ale przygoda z makijażami gdzie to zaczynało mieć ręce i nogi zaczęła się w 2016 roku, po czym w 2019 roku podjęłam decyzję iż chce zajmować się wizażem zawodowo.
@@ -81,8 +81,8 @@
     </div>
     <div class="row justify-content-center d-flex">
         <div class="col-12 col-sm-6 col-md-4 mb-2">
-          <div id="features-seciton-card-one" class="card bg-black">
-            <img src="./imgs/home/zdj12-scaled.jpg" class="card-img-top" alt="features-seciton-card-one">
+          <div id="features-seciton-card-one" class="card bg-black" [appAnimation]="animations[6]">
+            <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739556132/makijaz-sylwestrowy_rxvxrv.jpg" class="card-img-top" alt="features-seciton-card-one" style="height: 500px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title text-light">Serwisy</h5>
               <p class="card-text text-light">Zachęcamy do zapoznania się z naszą ofertą, sprawdzenia cennika i skorzystania z naszych usług</p>
@@ -92,8 +92,8 @@
         </div>
   
         <div class="col-12 col-sm-6 col-md-4 mb-2">
-          <div id="features-seciton-card-two" class="card bg-black">
-            <img src="./imgs/home/zdj22-scaled.jpg" class="card-img-top" alt="features-seciton-card-two">
+          <div id="features-seciton-card-two" class="card bg-black" [appAnimation]="animations[7]">
+            <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739556789/zdj22_con8b0.jpg" class="card-img-top" alt="features-seciton-card-two" style="height: 500px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title text-light">Certyfikaty</h5>
               <p class="card-text text-light">Zapraszam do zapoznania się z moimi certyfikatami, które potwierdzają najwyższą jakość świadczonych przeze mnie usług.</p>
@@ -103,8 +103,8 @@
         </div>
   
         <div class="col-12 col-sm-6 col-md-4 mb-2">
-          <div id="features-seciton-card-three" class="card bg-black">
-            <img src="./imgs/home/zdj23-scaled.jpg" class="card-img-top" alt="features-seciton-card-three">
+          <div id="features-seciton-card-three" class="card bg-black" [appAnimation]="animations[8]">
+            <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739556806/zdj23_sidxw4.jpg" class="card-img-top" alt="features-seciton-card-three" style="height: 500px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title text-light">Informacje</h5>
               <p class="card-text text-light">Jeśli masz wątpliwości dotyczące charakterystyki swojej skóry, kliknij poniższy przycisk.</p>
@@ -114,7 +114,7 @@
         </div>
       </div>
   </div>
-  <div id="faqs-section" class="container py-5">
+  <div id="faqs-section" class="container py-5" [appAnimation]="animations[8]">
     <div class="mb-3">
       <h2>FAQs</h2>
       <p class="lead">
@@ -165,7 +165,7 @@
   </div>
 </div>
 <div class="bg-black">
-  <div id="cta-section" class="container py-5 text-light text-center">
+  <div id="cta-section" class="container py-5 text-light text-center" [appAnimation]="animations[9]">
     <h2>
       Zdobądź Się Na Wyżyny Piękności <br />
       Korzystając Z Usług Na Najwyższym Poziomie
@@ -174,4 +174,4 @@
     <button class="btn btn-outline-light" routerLink="/questionnaire">Zapisz Się Już Teraz</button>
   </div>
 </div>
-<app-footer />
+<app-footer [footerStyle]="'main'" />

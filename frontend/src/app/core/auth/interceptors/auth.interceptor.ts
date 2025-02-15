@@ -5,12 +5,13 @@ import { catchError, switchMap, take, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoadingScreenActions } from '../../../features/loading-screen/store/loading-screen.actions';
+import { LoadingScreenState } from '../../../features/loading-screen/store/loading-screen.state';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
-  const loadingScreenStore: Store<any> = inject(Store);
+  const loadingScreenStore: Store<LoadingScreenState> = inject(Store);
 
   if (req.headers.has('x-bypass-interceptor')) {
     return next(req);

@@ -14,11 +14,18 @@ import {
   SignUpComponent, 
   StatuteComponent,
   UpdateQuestionnaireComponent
-} from './pages';
-import { authGuard, protectGuard, userResolver } from './core/auth';
-import { offersResolver } from './features';
-import { skinTypesResolver } from './features/skin-types';
-import { questionnaireResolver } from './features/questionnaire';
+} from '@pages';
+import { 
+  authGuard, 
+  protectGuard, 
+  userResolver 
+} from '@core';
+import { 
+  offersResolver, 
+  skinTypesResolver, 
+  questionnaireResolver, 
+  questionnaireGuard
+} from '@features';
 
 export const routes: Routes = [
   { path: '', component: ContainerComponent, resolve: [userResolver], children: [
@@ -31,8 +38,8 @@ export const routes: Routes = [
     { path: 'statute', component: StatuteComponent },
     { path: 'account', canActivate: [protectGuard], resolve: [questionnaireResolver], component: AccountContainerComponent, children: [
       { path: '', component: AccountInformationsComponent },
-      { path: 'questionnaire', component: ShowQuestionnaireComponent },
-      { path: 'questionnaire-update', resolve: [offersResolver, skinTypesResolver], component: UpdateQuestionnaireComponent }
+      { path: 'questionnaire', canActivate: [questionnaireGuard], component: ShowQuestionnaireComponent },
+      { path: 'questionnaire-update', canActivate: [questionnaireGuard], resolve: [offersResolver, skinTypesResolver], component: UpdateQuestionnaireComponent }
     ]}
   ]},
   { path: 'auth', canActivate: [authGuard], children: [

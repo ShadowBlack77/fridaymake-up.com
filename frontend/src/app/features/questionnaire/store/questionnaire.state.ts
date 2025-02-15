@@ -12,12 +12,11 @@ export namespace QuestionnaireState {
     isQuestionnaireSaved: false
   }
 
-  export const selectQuestionnaireState = createFeatureSelector('questionnaire');
-  export const selectQuestionnaire = createSelector(selectQuestionnaireState, (state: any) => {
-    console.log(state);
+  export const selectQuestionnaireState = createFeatureSelector<QuestionnaireState>('questionnaire');
+  export const selectQuestionnaire = createSelector(selectQuestionnaireState, (state: QuestionnaireState) => {
     return state.questionnaire;
   });
-  export const selectIsQuestionnaireSaved = createSelector(selectQuestionnaireState, (state: any) => {
+  export const selectIsQuestionnaireSaved = createSelector(selectQuestionnaireState, (state: QuestionnaireState) => {
     return state.isQuestionnaireSaved;
   })
 }

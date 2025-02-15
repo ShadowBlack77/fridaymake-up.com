@@ -14,7 +14,7 @@ export class QuestionnaireWrapperComponent implements OnInit, OnDestroy {
 
   @Input() wrapperType: string = 'new';
 
-  private readonly questionnaireStore: Store<any> = inject(Store);
+  private readonly questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly stepperService: StepperService = inject(StepperService);
   private readonly destroy$: Subject<void> = new Subject<void>();
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../../shared/footer';
-import { SkinTypesListComponent } from '../../features/skin-types';
+import { FooterComponent } from '@shared';
+import { SkinTypesListComponent } from '@features';
 
 @Component({
   selector: 'app-information',

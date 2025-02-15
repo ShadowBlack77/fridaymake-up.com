@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../../shared/footer';
-import { OffersListComponent } from '../../features';
+import { FooterComponent } from '@shared';
+import { OffersListComponent } from '@features';
 
 @Component({
   selector: 'app-price-list',

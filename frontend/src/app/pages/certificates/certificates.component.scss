@@ -1,17 +1,12 @@
-.card-img-overlay {
-  background-color: transparent;
-  opacity: 0;
-  transition: .4s ease-in-out;
-}
-
-.card-img-overlay:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, .7);
-  backdrop-filter: blur(2px);
-}
-
 .bg-main {
   background: radial-gradient(circle at 50% 50%, #f7d3b5, #ada687);
+  min-height: 100vh;
+}
+
+.img-fluid {
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .masonry {

@@ -3,10 +3,11 @@ import { Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@a
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, map, Subject, switchMap, takeUntil, throwError } from 'rxjs';
-import { AtuhState } from '../../../../core/auth/store/auth.state';
+import { AuthState } from '../../../../core/auth/store/auth.state';
 import { QuestionnaireState } from '../../../questionnaire/store/questionnaire.state';
-import { QuestionnaireModel } from '../../../questionnaire/models';
+import { QuestionnaireModel } from '@features';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserModel } from '@core';
 
 @Component({
   selector: 'app-account-data',
@@ -19,24 +20,24 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AccountDataComponent implements OnInit, OnDestroy {
 
-  private readonly authStore: Store<any> = inject(Store);
+  private readonly authStore: Store<AuthState> = inject(Store);
   private readonly questionnaireStore: Store = inject(Store);
   private readonly destroy$: Subject<void> = new Subject<void>();
 
   public questionnaire: WritableSignal<QuestionnaireModel | null> = signal(null);
-  public user: WritableSignal<any | null> = signal(null);
+  public user: WritableSignal<UserModel | null> = signal(null);
 
   ngOnInit(): void {
-    this.authStore.select(AtuhState.selectUser).pipe(
+    this.authStore.select(AuthState.selectUser).pipe(
       takeUntil(this.destroy$),
-      switchMap((user: any | null) => {
+      switchMap((user: UserModel | null) => {
         if (user) {
           this.user.set(user);
         }
 
         return this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire).pipe(
           takeUntil(this.destroy$),
-          map((questionnaire: QuestionnaireModel | null) => {
+          map((questionnaire: QuestionnaireModel | undefined) => {
             if (questionnaire) {
               this.questionnaire.set(questionnaire);
             }
@@ -47,6 +48,10 @@ export class AccountDataComponent implements OnInit, OnDestroy {
         )
       })
     ).subscribe();
+  }
+
+  public sendEmailVerification(): void {
+    console.log('Verify!');
   }
 
   ngOnDestroy(): void {

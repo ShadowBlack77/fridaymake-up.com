@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FooterComponent } from '../../shared/footer';
+import { Component, OnInit } from '@angular/core';
+import { FooterComponent } from '@shared';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-certificates',
@@ -9,6 +10,13 @@ import { FooterComponent } from '../../shared/footer';
   templateUrl: './certificates.component.html',
   styleUrl: './certificates.component.scss'
 })
-export class CertificatesComponent {
+export class CertificatesComponent implements OnInit {
 
+  ngOnInit(): void {
+    gsap.fromTo('#certificates', {
+      opacity: 0,
+    }, {
+      opacity: 1
+    });
+  }
 }

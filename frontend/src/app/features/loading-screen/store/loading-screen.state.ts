@@ -9,9 +9,8 @@ export namespace LoadingScreenState {
     isLoading: false
   }
 
-  export const selectLoadingScreenState = createFeatureSelector('loadingScreen');
-  export const selectLoadingScreen = createSelector(selectLoadingScreenState, (state: any) => {
-    console.log(state);
+  export const selectLoadingScreenState = createFeatureSelector<LoadingScreenState>('loadingScreen');
+  export const selectLoadingScreen = createSelector(selectLoadingScreenState, (state: LoadingScreenState) => {
     return state.isLoading;
   })
 }

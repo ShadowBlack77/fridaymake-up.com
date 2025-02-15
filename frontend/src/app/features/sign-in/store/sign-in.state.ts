@@ -9,5 +9,5 @@ export namespace SignInState {
     error: null
   }
 
-  export const selectSignInState = createFeatureSelector('signIn');
+  export const selectSignInState = createFeatureSelector<SignInState>('signIn');
 }

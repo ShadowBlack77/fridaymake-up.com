@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+
 import { LoadingScreenReducer } from './features/loading-screen/store/loading-screen.reducers';
 import { LoadingScreenEffects } from './features/loading-screen/store/loading-screen.effects';
 import { SignInReducer } from './features/sign-in/store/sign-in.reducers';
@@ -18,6 +19,8 @@ import { SkinTypesReducer } from './features/skin-types/store/skin-types.reducer
 import { SkinTypesEffects } from './features/skin-types/store/skin-types.effects';
 import { QuestionnaireReducer } from './features/questionnaire/store/questionnaire.reducers';
 import { QuestionnaireEffects } from './features/questionnaire/store/questionnaire.effects';
+import { SignUpReducer } from './features/sign-up/store/sign-up.reducers';
+import { SignUpEffects } from './features/sign-up/store/sign-up.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       loadingScreen: LoadingScreenReducer,
       signIn: SignInReducer,
+      signUp: SignUpReducer,
       auth: AuthReducer,
       offers: OffersReducer,
       skinTypes: SkinTypesReducer,
@@ -35,6 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects([
       LoadingScreenEffects,
       SignInEffects,
+      SignUpEffects,
       AuthEffects,
       OffersEffects,
       SkinTypesEffects,

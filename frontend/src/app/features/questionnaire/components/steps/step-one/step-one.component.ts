@@ -20,7 +20,7 @@ export class StepOneComponent implements OnInit, OnDestroy {
   
   @Input() stepType: string = 'new';
 
-  private readonly store: Store<any> = inject(Store);
+  private readonly store: Store<QuestionnaireState> = inject(Store);
   private readonly stepperService: StepperService = inject(StepperService);
   private readonly questionnaire: Signal<QuestionnaireModel | null | undefined> = toSignal(this.store.select(QuestionnaireState.selectQuestionnaire));
 

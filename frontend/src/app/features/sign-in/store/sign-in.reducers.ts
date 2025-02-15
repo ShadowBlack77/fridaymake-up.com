@@ -11,12 +11,14 @@ export const SignInReducer = createReducer(
   }),
   on(signInActions.signInSuccessfully, (state) => {
     return {
-      ...state
+      ...state,
+      error: null
     }
   }),
-  on(signInActions.signInFailure, (state) => {
+  on(signInActions.signInFailure, (state, actions) => {
     return {
-      ...state
+      ...state,
+      error: actions.errors
     }
   })
 );

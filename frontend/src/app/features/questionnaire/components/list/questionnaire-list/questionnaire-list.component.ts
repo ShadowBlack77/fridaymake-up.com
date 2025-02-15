@@ -13,15 +13,15 @@ import { questionnaireActions } from '../../../store/questionnaire.actions';
 })
 export class QuestionnaireListComponent implements OnInit, OnDestroy {
 
-  private readonly store: Store<any> = inject(Store);
+  private readonly questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly destroy$: Subject<void> = new Subject<void>();
 
   public questionnaire: WritableSignal<QuestionnaireModel | null> = signal(null);
 
   ngOnInit(): void {
-    this.store.select(QuestionnaireState.selectQuestionnaire).pipe(
+    this.questionnaireStore.select(QuestionnaireState.selectQuestionnaire).pipe(
       takeUntil(this.destroy$),
-      map((questionnaire: QuestionnaireModel | null) => {
+      map((questionnaire: QuestionnaireModel | undefined) => {
         if (questionnaire) {
           this.questionnaire.set(questionnaire);
         }
@@ -30,7 +30,7 @@ export class QuestionnaireListComponent implements OnInit, OnDestroy {
   }
 
   public removeQuestionnaire(questionnaireId: string): void {
-    this.store.dispatch(questionnaireActions.removeQuestionnaire({ questionnaireId }));
+    this.questionnaireStore.dispatch(questionnaireActions.removeQuestionnaire({ questionnaireId }));
   }
 
   public parseDate(currentDate: Date | string): string {

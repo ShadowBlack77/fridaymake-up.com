@@ -1,16 +1,17 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { UserModel } from "../models";
 
 export interface AuthState {
-  readonly user: any | null;
+  readonly user: UserModel | null;
 }
 
-export namespace AtuhState {
+export namespace AuthState {
   export const AUTH_INIT: AuthState = {
     user: null
   }
 
-  export const selectUserState = createFeatureSelector('auth');
-  export const selectUser = createSelector(selectUserState, (state: any) => {
+  export const selectUserState = createFeatureSelector<AuthState>('auth');
+  export const selectUser = createSelector(selectUserState, (state: AuthState) => {
     return state.user;
   })
 }

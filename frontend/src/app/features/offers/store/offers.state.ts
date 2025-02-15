@@ -10,9 +10,8 @@ export namespace OffersState {
     offers: []
   }
 
-  export const selectOffersState = createFeatureSelector('offers');
-  export const selectOffers = createSelector(selectOffersState, (state: any) => {
-    console.log(state);
+  export const selectOffersState = createFeatureSelector<OffersState>('offers');
+  export const selectOffers = createSelector(selectOffersState, (state: OffersState) => {
     return state.offers;
   });
 }

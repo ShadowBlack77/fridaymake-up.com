@@ -1,11 +1,18 @@
 .bg-main {
   background: radial-gradient(circle at 50% 50%, #f7d3b5, #ada687);
+  min-height: 100vh;
 }
 
 .masonry {
   column-count: 4;
   column-gap: 16px;
   width: 100%;
+}
+
+.img-fluid {
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .masonry img {

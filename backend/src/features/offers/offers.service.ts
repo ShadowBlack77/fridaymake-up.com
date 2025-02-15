@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Model } from 'mongoose';
-import { Offers, OffersSchema } from 'src/libs/schemas';
+import { Offers } from 'src/libs/schemas';
 
 @Injectable()
 export class OffersService {

@@ -17,7 +17,7 @@ export class OffersEffects {
       switchMap(() => {
         return this.offersService.getAll().pipe(
           take(1),
-          map((offers: any) => {
+          map((offers: { content: OffersModel[] }) => {
             return offersActions.loadOffersSuccessfully({ offers: offers.content });
           })
         )

@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, InternalServerErrorException, NotFound
 import { InjectModel } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Model, Types } from 'mongoose';
+import { QuestionnaireDto } from 'src/libs/models/questionnaire';
 import { Questionnaire } from 'src/libs/schemas';
 
 @Injectable()
@@ -43,7 +44,7 @@ export class QuestionnairesService {
     }
   }
 
-  public async update(res: Response, id: string, questionnaireDto: any) {
+  public async update(res: Response, id: string, questionnaireDto: QuestionnaireDto) {
     try {
       
       if (!Types.ObjectId.isValid(id)) {

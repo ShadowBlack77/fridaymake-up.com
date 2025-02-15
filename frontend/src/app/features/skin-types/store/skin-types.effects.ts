@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { SkinTypesService } from "../services";
 import { skinTypesActinos } from "./skin-types.actions";
 import { map, switchMap, take } from "rxjs";
+import { SkinTypesModel } from "../models";
 
 @Injectable()
 export class SkinTypesEffects {
@@ -16,7 +17,7 @@ export class SkinTypesEffects {
       switchMap(() => {
         return this.skinTypesService.getAll().pipe(
           take(1),
-          map((skinTypes: any) => {
+          map((skinTypes: { content: SkinTypesModel[] }) => {
             return skinTypesActinos.loadSkinTypesSuccessfully({ skinTypes: skinTypes.content });
           })
         )

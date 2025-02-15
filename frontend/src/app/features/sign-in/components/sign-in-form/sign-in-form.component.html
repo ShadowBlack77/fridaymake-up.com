@@ -1,6 +1,6 @@
 <form [formGroup]="signInForm" (submit)="onSubmit()">
   <div class="mb-3">
-    <label for="email">Nazwa użytkownika</label>
+    <label for="email">Adres Email</label>
     <input 
       type="email"
       name="email"
@@ -8,7 +8,7 @@
       class="form-control custom-border"
       formControlName="email"
       required
-      autocomplete="no"
+      autocomplete="off"
     >
   </div>
   <div class="mb-3">
@@ -20,7 +20,7 @@
       class="form-control custom-border"
       formControlName="password"
       required
-      autocomplete="no"
+      autocomplete="off"
     >
   </div>
   <div class="mb-3">
@@ -36,6 +36,11 @@
       </label>
     </div>
   </div>
+  @if (error()) {
+    <div class="mb-3">
+      <p class="lead text-danger fst-italic">{{ error() }}</p>
+    </div>
+  }
   <div class="mb-3 text-end">
     <p class="lead">Nie masz jeszcze konta? <a routerLink="/auth/sign-up" class="text-black">Zarejestruj się już teraz!</a></p>
   </div>

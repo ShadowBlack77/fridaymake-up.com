@@ -10,8 +10,8 @@ export namespace SkinTypesState {
     skinTypes: []
   }
 
-  export const selectSkinTypesState = createFeatureSelector('skinTypes');
-  export const selectSkinTypes = createSelector(selectSkinTypesState, (state: any) => {
+  export const selectSkinTypesState = createFeatureSelector<SkinTypesState>('skinTypes');
+  export const selectSkinTypes = createSelector(selectSkinTypesState, (state: SkinTypesState) => {
     console.log(state);
     return state.skinTypes
   });

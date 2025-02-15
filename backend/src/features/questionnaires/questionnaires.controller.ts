@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/co
 import { Response } from 'express';
 import { QuestionnairesService } from './questionnaires.service';
 import { GetCurrentUserId } from 'src/libs/decorators';
+import { QuestionnaireRequest } from 'src/libs/models/questionnaire';
 
 @Controller('questionnaires')
 export class QuestionnairesController {
@@ -14,12 +15,12 @@ export class QuestionnairesController {
   }
 
   @Post('/')
-  public create(@Res() res: Response, @GetCurrentUserId() userId: string, @Body() questionnaireRequest: any) {
+  public create(@Res() res: Response, @GetCurrentUserId() userId: string, @Body() questionnaireRequest: QuestionnaireRequest) {
     return this.questionnairesService.create(res, userId, questionnaireRequest);
   }
 
   @Put('/:id')
-  public update(@Res() res: Response, @Param('id') id: string, @Body() questionnaireRequest: any) {
+  public update(@Res() res: Response, @Param('id') id: string, @Body() questionnaireRequest: QuestionnaireRequest) {
     return this.questionnairesService.update(res, id, questionnaireRequest);
   }
 

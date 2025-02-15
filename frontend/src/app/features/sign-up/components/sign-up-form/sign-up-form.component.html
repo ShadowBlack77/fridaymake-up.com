@@ -1,0 +1,106 @@
+<form [formGroup]="signUpForm" (submit)="onSubmit()">
+  <div class="mb-3">
+    <label for="first-name">Imie*</label>
+    <input 
+      type="text"
+      name="first-name"
+      id="first-name"
+      class="form-control custom-border"
+      formControlName="firstName"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="last-name">Nazwisko*</label>
+    <input 
+      type="text"
+      name="last-name"
+      id="last-name"
+      class="form-control custom-border"
+      formControlName="lastName"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="email">Adres Email*</label>
+    <input 
+      type="email"
+      name="email"
+      id="email"
+      class="form-control custom-border"
+      formControlName="email"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="">Nazwa użytkownika*</label>
+    <input 
+      type="text"
+      name="username"
+      id="username"
+      class="form-control custom-border"
+      formControlName="username"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="password">Hasło*</label>
+    <input 
+      type="password"
+      name="password"
+      id="password"
+      class="form-control custom-border"
+      formControlName="password"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3">
+    <label for="password-confirmation">Potwierdź hasło*</label>
+    <input 
+      type="password"
+      name="password-confirmation"
+      id="password-confirmation"
+      class="form-control custom-border"
+      formControlName="passwordConfirmation"
+      required
+      autocomplete="off"
+    >
+  </div>
+  <div class="mb-3 text-end">
+    <p class="lead">Masz już konto? <a routerLink="/auth/sign-in" class="text-black">Zaloguj się!</a></p>
+  </div>
+  <div class="text-center mb-3">
+    <button type="submit" class="btn btn-outline-dark">Zarejestruj</button>
+  </div>
+  <div>
+    <p>
+      <i>Pola oznaczone <strong>*</strong> są wymagane!</i>
+    </p>
+    @if (signUpForm.get('email')?.hasError('email') && (signUpForm.get('email')?.dirty)) {
+      <div>
+        <p>Adres email nie jest poprawny.</p>
+      </div>
+    }
+    @if (signUpForm.get('password')?.hasError('passwordComplexity') && (signUpForm.get('password')?.dirty)) {
+      <div>
+        <p>Hasło musi zawierać:</p>
+        <ul>
+          <li>Co najmniej 8 znaków</li>
+          <li>Dużą i małą literę</li>
+          <li>Cyfrę</li>
+          <li>Znak specjalny</li>
+        </ul>
+      </div>
+    }
+    @if (signUpForm.hasError('passwordMismatch') && (signUpForm.get('passwordConfirmation')?.dirty)) {
+      <div>
+        <p>Hasła muszą być identyczne.</p>
+      </div>
+    }
+  </div>
+</form>

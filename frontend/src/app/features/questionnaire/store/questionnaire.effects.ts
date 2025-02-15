@@ -1,21 +1,20 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { QuestionnaireService } from "../services";
-import { AuthService } from "../../../core/auth";
 import { Store } from "@ngrx/store";
 import { StepperService } from "../../../shared";
 import { catchError, map, of, switchMap, take } from "rxjs";
 import { questionnaireActions } from "./questionnaire.actions";
 import { Router } from "@angular/router";
 import { LoadingScreenActions } from "../../loading-screen/store/loading-screen.actions";
+import { LoadingScreenState } from "../../loading-screen/store/loading-screen.state";
 
 @Injectable()
 export class QuestionnaireEffects {
 
   private readonly actions$: Actions = inject(Actions);
   private readonly questionnaireService: QuestionnaireService = inject(QuestionnaireService);
-  private readonly authService: AuthService = inject(AuthService);
-  private readonly loadingScreenStore: Store<any> = inject(Store);
+  private readonly loadingScreenStore: Store<LoadingScreenState> = inject(Store);
   private readonly stepperService: StepperService = inject(StepperService);
   private readonly router: Router = inject(Router);
   

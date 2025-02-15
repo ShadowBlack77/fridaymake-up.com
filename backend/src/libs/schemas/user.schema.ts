@@ -7,6 +7,20 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ timestamps: true })
 export class User {
 
+  @Prop({
+    type: String,
+    required: [true, 'Firstname is required'], 
+    trim: true, 
+  })
+  readonly firstName: string;
+
+  @Prop({
+    type: String,
+    required: [true, 'Lastname is required'], 
+    trim: true, 
+  })
+  readonly lastName: string;
+
   @Prop({ 
     type: String, 
     required: [true, 'Username is required'], 

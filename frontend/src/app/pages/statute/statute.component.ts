@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../../shared/footer';
+import { FooterComponent } from '@shared';
 
 @Component({
   selector: 'app-statute',
