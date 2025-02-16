@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoadingScreenActions } from '../../../features/loading-screen/store/loading-screen.actions';
 import { LoadingScreenState } from '../../../features/loading-screen/store/loading-screen.state';
+import { API_KEY } from '../../env';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
@@ -22,9 +23,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     switchMap(() => {
       const updatedRequest = req.clone({
         withCredentials: true,
-        // setHeaders: {
-        //   'api-key': `${API_KEY}`,
-        // }
+        setHeaders: {
+          'api-key': `${API_KEY}`,
+        }
       });
 
       return next(updatedRequest);
@@ -37,9 +38,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           switchMap(() => {
             const updatedRequest = req.clone({
               withCredentials: true,
-              // setHeaders: {
-              //   'api-key': `${API_KEY}`,
-              // }
+              setHeaders: {
+                'api-key': `${API_KEY}`,
+              }
             });
 
             return next(updatedRequest);

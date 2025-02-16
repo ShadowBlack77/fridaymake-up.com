@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './guards/jwt/jwt.guard';
 import { MailsService } from '../mails/mails.service';
 import { AuthSession, AuthSessionSchema } from 'src/libs/schemas/auth-sessions.schema';
+import { ApiKeyGuard } from './guards/api-key/api-key.guard';
 
 @Module({
   imports: [
@@ -26,6 +27,10 @@ import { AuthSession, AuthSessionSchema } from 'src/libs/schemas/auth-sessions.s
   providers: [
     AuthService,
     MailsService,
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyGuard
+    },
     {
       provide: APP_GUARD,
       useClass: JwtGuard

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, of, take } from 'rxjs';
-import { BACKEND_URL } from '../../env';
+import { API_KEY, BACKEND_URL } from '../../env';
 import { UserModel } from '../models';
 import { SignInModel } from '@features';
 
@@ -12,7 +12,8 @@ export class AuthService {
 
   private readonly httpClient: HttpClient = inject(HttpClient);
   private readonly defaultHeaders: HttpHeaders = new HttpHeaders({
-    'x-bypass-interceptor': 'true'
+    'x-bypass-interceptor': 'true',
+    'api-key': `${API_KEY}`
   });
 
   public signIn(signInCredentials: SignInModel): Observable<unknown> {
